@@ -6,6 +6,7 @@ import com.finalproject.hotelbookingsystem.exceptions.CustomerIdDoesNotExistExce
 import com.finalproject.hotelbookingsystem.repository.CustomerRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 public class CustomerServiceImpl implements CustomerService{
     private final CustomerRepository customerRepository;
     private ModelMapper modelMapper;
-    private Logger logger;
+    private final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
     @Autowired
     public CustomerServiceImpl(CustomerRepository customerRepository) {
         logger.info("Customer Service called");
