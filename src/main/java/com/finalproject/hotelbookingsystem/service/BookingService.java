@@ -7,7 +7,7 @@ public interface BookingService {
 
     BookingDto createBooking(BookingDto booking);
 
-    boolean cancelBooking(Long bookingId);
+    void cancelBooking(Long bookingId);
 
     BookingDto getBookingById(Long bookingId);
 }
