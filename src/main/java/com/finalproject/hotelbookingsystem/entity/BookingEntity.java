@@ -17,7 +17,7 @@ import java.util.Date;
 public class BookingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long bookingId;
 
     private Long userId;
     private Long roomId;

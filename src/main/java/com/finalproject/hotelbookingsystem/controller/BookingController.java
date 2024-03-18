@@ -18,38 +18,22 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<BookingDto> createBooking(@RequestBody BookingDto booking) {
-        BookingDto createdBooking = bookingService.createBooking(booking);
-        return new ResponseEntity<>(createdBooking, HttpStatus.CREATED);
+    public BookingDto createBooking(@RequestBody BookingDto booking) {
+        return bookingService.createBooking(booking);
     }
 
     @GetMapping("/{bookingId}")
-    public ResponseEntity<BookingDto> getBookingById(@PathVariable Long bookingId) {
-        BookingDto booking = bookingService.getBookingById(bookingId);
-        if (booking != null) {
-            return new ResponseEntity<>(booking, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public BookingDto getBookingById(@PathVariable Long bookingId) {
+        return bookingService.getBookingById(bookingId);
     }
 
     @PutMapping("/{bookingId}")
-    public ResponseEntity<BookingDto> updateBooking(@PathVariable Long bookingId, @RequestBody BookingDto booking) {
-        BookingDto updatedBooking = bookingService.updateBooking(bookingId, booking);
-        if (updatedBooking != null) {
-            return new ResponseEntity<>(updatedBooking, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public BookingDto updateBooking(@PathVariable Long bookingId, @RequestBody BookingDto booking) {
+        return bookingService.updateBooking(bookingId, booking);
     }
 
     @DeleteMapping("/{bookingId}")
-    public ResponseEntity<Void> cancelBooking(@PathVariable Long bookingId) {
-        boolean deleted = bookingService.cancelBooking(bookingId);
-        if (deleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public void cancelBooking(@PathVariable Long bookingId) {
+        bookingService.cancelBooking(bookingId);
     }
 }
