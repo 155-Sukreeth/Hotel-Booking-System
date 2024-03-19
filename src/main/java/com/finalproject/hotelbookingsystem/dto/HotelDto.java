@@ -14,8 +14,7 @@ public class HotelDto {
 
         private String name;
         private String address;
-        @OneToMany
-        private RoomDto roomDto;
+
 
     }
 

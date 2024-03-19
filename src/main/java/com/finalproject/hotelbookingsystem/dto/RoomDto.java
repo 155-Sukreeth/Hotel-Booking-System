@@ -1,7 +1,9 @@
 package com.finalproject.hotelbookingsystem.dto;
 
 import jakarta.persistence.ManyToOne;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
 
 public class RoomDto {
     private String roomType;
