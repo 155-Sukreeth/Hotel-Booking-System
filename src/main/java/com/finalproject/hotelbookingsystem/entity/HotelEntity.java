@@ -18,6 +18,6 @@ public class HotelEntity {
     private int hotel_id;
     private String name;
     private String address;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "hotelEntity")
-    private List<RoomEntity> rooms;
+    
+
 }

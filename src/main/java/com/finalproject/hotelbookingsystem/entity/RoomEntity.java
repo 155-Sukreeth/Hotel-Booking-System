@@ -11,7 +11,7 @@ public class RoomEntity {
     private int room_id;
     private String roomType;
     @JoinColumn(name="hotel_id")
-    @ManyToOne
+    @ManyToOne()
     private HotelEntity hotelEntity;
 
 

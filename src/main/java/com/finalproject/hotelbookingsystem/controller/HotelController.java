@@ -42,6 +42,7 @@ public class HotelController {
         return hotelService.updateHotel(hotelDto);
     }
 
+
     @DeleteMapping("/hotels/{id}")
     public String deleteHotel(@PathVariable("id") int id) {
         return hotelService.deleteHotel(id);
