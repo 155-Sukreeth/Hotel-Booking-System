@@ -1,8 +1,11 @@
 package com.finalproject.hotelbookingsystem.service;
 
 import com.finalproject.hotelbookingsystem.controller.RoomController;
+import com.finalproject.hotelbookingsystem.dto.HotelDto;
 import com.finalproject.hotelbookingsystem.dto.RoomDto;
+import com.finalproject.hotelbookingsystem.entity.HotelEntity;
 import com.finalproject.hotelbookingsystem.entity.RoomEntity;
+import com.finalproject.hotelbookingsystem.exceptions.RoomIdNotFoundException;
 import com.finalproject.hotelbookingsystem.repository.RoomRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -37,8 +40,9 @@ public class RoomServiceImpl implements RoomService{
         Optional<RoomEntity> roomEntityOptional= roomRepository.findById(roomId);
         if(roomEntityOptional.isEmpty())
         {
-
             logger.warn("Room ID does not found");
+            throw new RoomIdNotFoundException("Room Id is not found");
+
         }
         return modelmapper.map(roomEntityOptional.get(),RoomDto.class);
     }
@@ -63,18 +67,28 @@ public class RoomServiceImpl implements RoomService{
             return  "Room deleted successfully";
         }
         logger.warn("Room ID does not exist");
-        return "room ID does not exist";
+        throw new RoomIdNotFoundException("Room Id is not found");
     }
 
     @Override
-    public RoomDto updateRoomById(RoomDto roomDto) {
+    public RoomDto updateRoomById(int roomId,RoomDto roomDto) {
 
-        RoomEntity roomEntity=roomRepository.save(modelmapper.map(roomDto,RoomEntity.class));
-        logger.info("Room is updated successfully");
-        return modelmapper.map(roomEntity,RoomDto.class);
+        Optional<RoomEntity> optionalRoom = roomRepository.findById(roomId);
+        if (optionalRoom.isEmpty()) {
+            logger.warn("Room not found");
+            throw new RoomIdNotFoundException("Room not found");
+        }
+
+        RoomEntity roomEntity = optionalRoom.get();
+        roomEntity.setRoomType(roomDto.getRoomType());
+        roomEntity.setStatus(roomDto.getStatus());
+
+        RoomEntity updatedRoomEntity = roomRepository.save(roomEntity);
+        return modelmapper.map(updatedRoomEntity, RoomDto.class);
 
     }
 }
+
 
 
 

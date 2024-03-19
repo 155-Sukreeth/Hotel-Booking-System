@@ -2,6 +2,7 @@ package com.finalproject.hotelbookingsystem.service;
 
 import com.finalproject.hotelbookingsystem.dto.HotelDto;
 import com.finalproject.hotelbookingsystem.entity.HotelEntity;
+import com.finalproject.hotelbookingsystem.exceptions.HotelIdNotFoundException;
 import com.finalproject.hotelbookingsystem.repository.HotelRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -29,7 +30,7 @@ public class HotelServiceImpl implements HotelService {
         Optional<HotelEntity> hotelOptional = hotelRepository.findById(id);
         if(hotelOptional.isEmpty()){
             logger.warn("Hotel not found with id: {}", id);
-            throw new RuntimeException();
+            throw new HotelIdNotFoundException("Hotel Id not found");
         }
         return modelMapper.map(hotelOptional.get(), HotelDto.class);
     }
@@ -58,7 +59,7 @@ public class HotelServiceImpl implements HotelService {
         Optional<HotelEntity> optionalHotel = hotelRepository.findById(id);
         if (optionalHotel.isEmpty()) {
             logger.warn("Hotel not found with id: {}", id);
-            throw new RuntimeException("Hotel not found with id: " + id);
+            throw new HotelIdNotFoundException("Hotel not found with id: " + id);
         }
 
         HotelEntity existingHotel = optionalHotel.get();
