@@ -8,30 +8,31 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class CustomerServiceImpl implements CustomerService{
     private final CustomerRepository customerRepository;
-    private ModelMapper modelMapper;
-    private final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+    private final ModelMapper modelMapper;
+    private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, ModelMapper modelMapper) {
         logger.info("Customer Service called");
         this.customerRepository = customerRepository;
+        this.modelMapper = modelMapper;
     }
-
     @Override
     public List<CustomerDto> getAllCustomers() {
         logger.info("getALlCustomers called");
         return customerRepository.findAll()
                 .stream()
                 .map(e -> modelMapper.map(e, CustomerDto.class))
-                .collect(Collectors.toList());
+                .toList();
     }
-
     @Override
     public CustomerDto getCustomerById(Long id) {
         logger.info("getCustomerById called");
@@ -42,7 +43,6 @@ public class CustomerServiceImpl implements CustomerService{
         logger.info("getALlCustomers exiting");
         return modelMapper.map(customerEntity.get(), CustomerDto.class);
     }
-
     @Override
     public CustomerDto createCustomer(CustomerDto customerDto) {
         logger.info("createCustomer called");
@@ -50,7 +50,6 @@ public class CustomerServiceImpl implements CustomerService{
         logger.info("createCustomer exiting");
         return modelMapper.map(customerEntity, CustomerDto.class);
     }
-
     @Override
     public CustomerDto updateCustomer(Long id, CustomerDto customerDto) {
         logger.info("updateCustomer called");
@@ -58,7 +57,6 @@ public class CustomerServiceImpl implements CustomerService{
         logger.info("updateCustomer exiting");
         return modelMapper.map(customerEntity, CustomerDto.class);
     }
-
     @Override
     public void deleteCustomer(Long id) {
         logger.info("deleteCustomer called");
