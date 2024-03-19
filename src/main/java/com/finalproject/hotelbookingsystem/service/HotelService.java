@@ -12,7 +12,7 @@ public interface HotelService {
 
     HotelDto createHotel(HotelDto hotelDto);
 
-    HotelDto updateHotel( HotelDto hotelDto);
+    HotelDto updateHotelById( int id,HotelDto hotelDto);
 
     String deleteHotel(int id);
 

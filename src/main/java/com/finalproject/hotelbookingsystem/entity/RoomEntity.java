@@ -7,11 +7,11 @@ import jakarta.persistence.*;
 public class RoomEntity {
 
     @Id
-    @GeneratedValue
-    private int room_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int roomId;
     private String roomType;
-    @JoinColumn(name="hotel_id")
-    @ManyToOne()
+    @JoinColumn(name="hotelId")
+    @ManyToOne
     private HotelEntity hotelEntity;
 
 
