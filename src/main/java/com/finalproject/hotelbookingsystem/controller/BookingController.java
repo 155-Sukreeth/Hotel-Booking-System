@@ -1,11 +1,14 @@
 package com.finalproject.hotelbookingsystem.controller;
 
 import com.finalproject.hotelbookingsystem.dto.BookingDto;
+import com.finalproject.hotelbookingsystem.dto.BookingUpdateDto;
 import com.finalproject.hotelbookingsystem.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/bookings")
@@ -27,8 +30,12 @@ public class BookingController {
         return bookingService.getBookingById(bookingId);
     }
 
+    @GetMapping("/bookings")
+    public List<BookingDto> getAllBookings(){
+        return bookingService.getAllBookings();
+    }
     @PutMapping("/{bookingId}")
-    public BookingDto updateBooking(@PathVariable Long bookingId, @RequestBody BookingDto booking) {
+    public BookingDto updateBooking(@PathVariable Long bookingId, @RequestBody BookingUpdateDto booking) {
         return bookingService.updateBooking(bookingId, booking);
     }
 
