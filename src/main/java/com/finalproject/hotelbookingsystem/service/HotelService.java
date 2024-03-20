@@ -6,15 +6,15 @@ import java.util.List;
 
 public interface HotelService {
 
-    HotelDto getHotelById(int id);
+    HotelDto getHotelById(Integer id);
 
     List<HotelDto> getAllHotels();
 
     HotelDto createHotel(HotelDto hotelDto);
 
-    HotelDto updateHotelById( int id,HotelDto hotelDto);
+    HotelDto updateHotelById(Integer id,HotelDto hotelDto);
 
-    String deleteHotel(int id);
+    void deleteHotel(Integer id);
 
 
 }

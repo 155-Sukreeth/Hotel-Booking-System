@@ -3,6 +3,7 @@ package com.finalproject.hotelbookingsystem.controller;
 
 import com.finalproject.hotelbookingsystem.dto.HotelDto;
 import com.finalproject.hotelbookingsystem.dto.RoomDto;
+import com.finalproject.hotelbookingsystem.dto.RoomResponseDto;
 import com.finalproject.hotelbookingsystem.service.HotelService;
 import com.finalproject.hotelbookingsystem.service.RoomService;
 import org.slf4j.Logger;
@@ -15,39 +16,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/room-api/v1")
 public class RoomController {
-
+    private final RoomService roomService;
     @Autowired
-    private  RoomService roomService;
-
+    public RoomController(RoomService roomService) {
+        this.roomService = roomService;
+    }
     private static final Logger logger= LoggerFactory.getLogger(RoomController.class);
-
     @GetMapping("/rooms/{id}")
-    public RoomDto getRoomById(@PathVariable("id") int roomId) {
+    public RoomResponseDto getRoomById(@PathVariable("id") int roomId) {
         logger.info("RoomController is called");
         return roomService.getRoomById(roomId);
     }
-
     @GetMapping("/rooms")
-    public List<RoomDto> getAllRooms() {
-
+    public List<RoomResponseDto> getAllRooms() {
         return roomService.getAllRooms();
     }
-
     @PostMapping("/rooms")
-    public RoomDto createRoom(@RequestBody RoomDto roomDto)
-    {
+    public RoomResponseDto createRoom(@RequestBody RoomDto roomDto) {
         return roomService.createRoom(roomDto);
     }
     @PutMapping("/rooms/{id}")
-    public RoomDto updateRoomById(@PathVariable("id") int roomId ,@RequestBody RoomDto roomDto) {
-
+    public RoomResponseDto updateRoomById(@PathVariable("id") int roomId, @RequestBody RoomDto roomDto) {
         return roomService.updateRoomById(roomId,roomDto);
     }
-
     @DeleteMapping("/rooms/{id}")
-    public String deleteRoomById(@PathVariable("id") int roomId) {
-        return roomService.deleteRoomById(roomId);
-
+    public void deleteRoomById(@PathVariable("id") Integer roomId) {
+        roomService.deleteRoomById(roomId);
     }
 }

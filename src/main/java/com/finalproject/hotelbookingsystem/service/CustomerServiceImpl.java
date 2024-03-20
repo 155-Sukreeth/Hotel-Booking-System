@@ -1,6 +1,7 @@
 package com.finalproject.hotelbookingsystem.service;
 
 import com.finalproject.hotelbookingsystem.dto.CustomerDto;
+import com.finalproject.hotelbookingsystem.dto.CustomerUpdateDto;
 import com.finalproject.hotelbookingsystem.entity.CustomerEntity;
 import com.finalproject.hotelbookingsystem.exceptions.CustomerIdDoesNotExistException;
 import com.finalproject.hotelbookingsystem.repository.CustomerRepository;
@@ -51,11 +52,17 @@ public class CustomerServiceImpl implements CustomerService{
         return modelMapper.map(customerEntity, CustomerDto.class);
     }
     @Override
-    public CustomerDto updateCustomer(Long id, CustomerDto customerDto) {
+    public CustomerDto updateCustomer(Long id, CustomerUpdateDto customerUpdateDto) {
         logger.info("updateCustomer called");
-        CustomerEntity customerEntity = customerRepository.save(modelMapper.map(customerDto, CustomerEntity.class));
+        Optional<CustomerEntity> optionalCustomerEntity = customerRepository.findById(id);
+        if(optionalCustomerEntity.isEmpty()){
+            throw new CustomerIdDoesNotExistException("Customer ID not found");
+        }
+        CustomerEntity customerEntity = optionalCustomerEntity.get();
+        modelMapper.map(customerUpdateDto, customerEntity);
+        customerRepository.save(customerEntity);
         logger.info("updateCustomer exiting");
-        return modelMapper.map(customerEntity, CustomerDto.class);
+        return modelMapper.map(optionalCustomerEntity.get(), CustomerDto.class);
     }
     @Override
     public void deleteCustomer(Long id) {

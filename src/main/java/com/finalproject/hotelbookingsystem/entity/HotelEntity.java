@@ -12,13 +12,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HotelEntity {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "hotel_id")
-    private int hotelId;
+    private Integer hotelId;
     private String name;
     private String address;
-
-
 }

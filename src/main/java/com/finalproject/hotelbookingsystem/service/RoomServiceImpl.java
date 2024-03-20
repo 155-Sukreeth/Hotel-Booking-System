@@ -1,11 +1,12 @@
 package com.finalproject.hotelbookingsystem.service;
 
-import com.finalproject.hotelbookingsystem.controller.RoomController;
-import com.finalproject.hotelbookingsystem.dto.HotelDto;
 import com.finalproject.hotelbookingsystem.dto.RoomDto;
+import com.finalproject.hotelbookingsystem.dto.RoomResponseDto;
 import com.finalproject.hotelbookingsystem.entity.HotelEntity;
 import com.finalproject.hotelbookingsystem.entity.RoomEntity;
+import com.finalproject.hotelbookingsystem.exceptions.HotelIdNotFoundException;
 import com.finalproject.hotelbookingsystem.exceptions.RoomIdNotFoundException;
+import com.finalproject.hotelbookingsystem.repository.HotelRepository;
 import com.finalproject.hotelbookingsystem.repository.RoomRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -15,64 +16,62 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class RoomServiceImpl implements RoomService{
-
     private static final Logger logger= LoggerFactory.getLogger(RoomServiceImpl.class);
-
+    private final RoomRepository roomRepository;
+    private final HotelRepository hotelRepository;
+    private final ModelMapper modelmapper;
     @Autowired
-    private RoomRepository roomRepository;
-
-    @Autowired
-    private ModelMapper modelmapper;
-    @Override
-    public RoomDto createRoom(RoomDto roomDto) {
-        RoomEntity roomEntity=roomRepository.save(modelmapper.map(roomDto,RoomEntity.class));
-        logger.info("Room is created successfully");
-        return modelmapper.map(roomEntity,RoomDto.class);
+    public RoomServiceImpl(RoomRepository roomRepository, HotelRepository hotelRepository, ModelMapper modelmapper) {
+        this.roomRepository = roomRepository;
+        this.hotelRepository = hotelRepository;
+        this.modelmapper = modelmapper;
     }
-
     @Override
-    public RoomDto getRoomById(int roomId) {
-
+    public RoomResponseDto createRoom(RoomDto roomDto) {
+        Optional<HotelEntity> optionalHotelEntity = hotelRepository.findById(roomDto.getHotelId());
+        if(optionalHotelEntity.isEmpty()){
+            throw new HotelIdNotFoundException("Hotel Id not found");
+        }
+        RoomEntity roomEntity = RoomEntity.builder()
+                .roomType(roomDto.getRoomType())
+                .hotelEntity(optionalHotelEntity.get())
+                .status(roomDto.getStatus()==null?"Vacant":roomDto.getStatus())
+                .build();
+        logger.info("Room is created successfully");
+        return modelmapper.map(roomRepository.save(roomEntity), RoomResponseDto.class);
+    }
+    @Override
+    public RoomResponseDto getRoomById(int roomId) {
         Optional<RoomEntity> roomEntityOptional= roomRepository.findById(roomId);
-        if(roomEntityOptional.isEmpty())
-        {
+        if(roomEntityOptional.isEmpty()) {
             logger.warn("Room ID does not found");
             throw new RoomIdNotFoundException("Room Id is not found");
-
         }
-        return modelmapper.map(roomEntityOptional.get(),RoomDto.class);
+        return modelmapper.map(roomEntityOptional.get(),RoomResponseDto.class);
     }
-
     @Override
-    public List<RoomDto> getAllRooms() {
-
-        List<RoomDto> roomDtoList=roomRepository.findAll()
-                .stream().map(e->modelmapper.map(e,RoomDto.class))
-                .collect(Collectors.toList());
-        return roomDtoList;
+    public List<RoomResponseDto> getAllRooms() {
+        return roomRepository.findAll()
+                .stream()
+                .map(e->modelmapper.map(e,RoomResponseDto.class))
+                .toList();
     }
-
     @Override
-    public String deleteRoomById(int roomId) {
-
-        boolean isthere=roomRepository.existsById(roomId);
-        if(isthere)
-        {
+    public void deleteRoomById(Integer roomId) {
+        if(roomRepository.existsById(roomId)) {
             roomRepository.deleteById(roomId);
             logger.info("Room is deleted successfully");
-            return  "Room deleted successfully";
         }
+        else{
         logger.warn("Room ID does not exist");
         throw new RoomIdNotFoundException("Room Id is not found");
+        }
     }
-
     @Override
-    public RoomDto updateRoomById(int roomId,RoomDto roomDto) {
-
+    public RoomResponseDto updateRoomById(int roomId,RoomDto roomDto) {
         Optional<RoomEntity> optionalRoom = roomRepository.findById(roomId);
         if (optionalRoom.isEmpty()) {
             logger.warn("Room not found");
@@ -81,11 +80,9 @@ public class RoomServiceImpl implements RoomService{
 
         RoomEntity roomEntity = optionalRoom.get();
         roomEntity.setRoomType(roomDto.getRoomType());
-        roomEntity.setStatus(roomDto.getStatus());
+        roomEntity.setStatus(roomDto.getStatus()==null?"Vacant":roomDto.getStatus());
 
-        RoomEntity updatedRoomEntity = roomRepository.save(roomEntity);
-        return modelmapper.map(updatedRoomEntity, RoomDto.class);
-
+        return modelmapper.map(roomRepository.save(roomEntity), RoomResponseDto.class);
     }
 }
 
