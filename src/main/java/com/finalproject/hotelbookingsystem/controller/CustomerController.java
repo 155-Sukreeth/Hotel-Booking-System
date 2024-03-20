@@ -32,13 +32,11 @@ public class CustomerController {
         return customerService.createCustomer(customer);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateDto customer) {
-        CustomerDto updatedCustomer = customerService.updateCustomer(id, customer);
-        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+    public CustomerDto updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateDto customer) {
+        return customerService.updateCustomer(id, customer);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
+    public void deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

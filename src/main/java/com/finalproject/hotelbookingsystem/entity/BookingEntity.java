@@ -2,6 +2,7 @@ package com.finalproject.hotelbookingsystem.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,19 +12,20 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class BookingEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long bookingId;
     @Column(name = "duration")
     private Integer duration;
-    @OneToOne
-    @JoinColumn(name = "customer_id")
+    @ManyToOne
+    @JoinColumn(name = "customerId")
     private CustomerEntity customerEntity;
-    @OneToOne
-    @JoinColumn(name = "hotel_id")
+    @ManyToOne
+    @JoinColumn(name = "hotelId")
     private HotelEntity hotelEntity;
-    @OneToOne
-    @JoinColumn(name = "room_id")
+    @ManyToOne
+    @JoinColumn(name = "roomId")
     private RoomEntity roomEntity;
 }
