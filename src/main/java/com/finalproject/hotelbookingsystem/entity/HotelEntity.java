@@ -20,5 +20,4 @@ public class HotelEntity {
     private String name;
     private String address;
 
-
 }
