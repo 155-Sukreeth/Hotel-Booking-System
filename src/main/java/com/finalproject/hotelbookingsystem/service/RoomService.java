@@ -1,18 +1,17 @@
 package com.finalproject.hotelbookingsystem.service;
 
 import com.finalproject.hotelbookingsystem.dto.RoomDto;
+import com.finalproject.hotelbookingsystem.dto.RoomResponseDto;
 
 import java.util.List;
 
 public interface RoomService {
 
-    RoomDto createRoom(RoomDto roomDto);
-    RoomDto getRoomById(int roomId);
-    List<RoomDto> getAllRooms();
-
-    String deleteRoomById(int roomId);
-
-    RoomDto updateRoomById(int roomId,RoomDto roomDto );
+    RoomResponseDto createRoom(RoomDto roomDto);
+    RoomResponseDto getRoomById(int roomId);
+    List<RoomResponseDto> getAllRooms();
+    void deleteRoomById(Integer roomId);
+    RoomResponseDto updateRoomById(int roomId,RoomDto roomDto );
 
 }
 

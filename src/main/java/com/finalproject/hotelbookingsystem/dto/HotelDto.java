@@ -13,8 +13,6 @@ public class HotelDto {
         private String name;
         @NotEmpty(message = "address cannot be empty . Enter the  address")
         private String address;
-
-
     }
 
 

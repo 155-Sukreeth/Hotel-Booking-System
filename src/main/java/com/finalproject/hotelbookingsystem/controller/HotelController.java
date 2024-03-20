@@ -17,43 +17,33 @@ import java.util.List;
 public class HotelController {
     private static final Logger logger = LoggerFactory.getLogger(HotelController.class);
     private final HotelService hotelService;
-
     @Autowired
     public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;
     }
-
     @GetMapping("/hotels/{id}")
-    public HotelDto getHotelById(@PathVariable("id") int id) {
-        logger.info("Fetching hotel by id: {}", id);
-        return hotelService.getHotelById(id);
+    public HotelDto getHotelById(@PathVariable("id") Integer hotelId) {
+        logger.info("Fetching hotel by id: {}", hotelId);
+        return hotelService.getHotelById(hotelId);
     }
-
     @GetMapping("/hotels")
     public List<HotelDto> getAllHotels() {
         logger.info("Fetching all hotels");
         return hotelService.getAllHotels();
     }
-
     @PostMapping(value = "/hotels")
-    public ResponseEntity<HotelDto> createHotel(@RequestBody HotelDto hotelDto) {
+    public HotelDto createHotel(@RequestBody HotelDto hotelDto) {
         logger.info("Creating hotel: {}", hotelDto);
-
-        return new ResponseEntity<>(hotelService.createHotel(hotelDto), HttpStatus.CREATED);
+        return hotelService.createHotel(hotelDto);
     }
-
     @PutMapping("/hotels/{id}")
-    public ResponseEntity<HotelDto> updateHotelById(@PathVariable int id, @RequestBody HotelDto updatedHotelDto) {
-        logger.info("Updating hotel with id {}: {}", id, updatedHotelDto);
-        HotelDto updatedHotel = hotelService.updateHotelById(id, updatedHotelDto);
-        return new ResponseEntity<>(updatedHotel, HttpStatus.OK);
+    public HotelDto updateHotelById(@PathVariable("id") Integer hotelId, @RequestBody HotelDto updatedHotelDto) {
+        logger.info("Updating hotel with id {}: {}", hotelId, updatedHotelDto);
+        return hotelService.updateHotelById(hotelId, updatedHotelDto);
     }
-
-
     @DeleteMapping("/hotels/{id}")
-    public String deleteHotel(@PathVariable("id") int id) {
-        logger.info("Deleting hotel with id: {}", id);
-        return hotelService.deleteHotel(id);
-
+    public void deleteHotel(@PathVariable("id") Integer hotelId) {
+        logger.info("Deleting hotel with id: {}", hotelId);
+        hotelService.deleteHotel(hotelId);
     }
 }

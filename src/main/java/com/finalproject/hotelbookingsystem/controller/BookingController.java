@@ -4,8 +4,6 @@ import com.finalproject.hotelbookingsystem.dto.BookingDto;
 import com.finalproject.hotelbookingsystem.dto.BookingUpdateDto;
 import com.finalproject.hotelbookingsystem.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,7 +36,6 @@ public class BookingController {
     public BookingDto updateBooking(@PathVariable Long bookingId, @RequestBody BookingUpdateDto booking) {
         return bookingService.updateBooking(bookingId, booking);
     }
-
     @DeleteMapping("/{bookingId}")
     public void cancelBooking(@PathVariable Long bookingId) {
         bookingService.cancelBooking(bookingId);

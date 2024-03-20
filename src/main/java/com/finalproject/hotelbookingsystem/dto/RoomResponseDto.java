@@ -1,6 +1,6 @@
 package com.finalproject.hotelbookingsystem.dto;
 
-import jakarta.validation.constraints.NotEmpty;
+import com.finalproject.hotelbookingsystem.entity.HotelEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoomDto {
-    @NotEmpty(message = "Room Type can not be empty. Enter room Type")
+public class RoomResponseDto {
     private String roomType;
-    private Integer hotelId;
-    private String status="Vacant";
+    private HotelDto hotelEntity;
+    private String status="vacate";
 }
