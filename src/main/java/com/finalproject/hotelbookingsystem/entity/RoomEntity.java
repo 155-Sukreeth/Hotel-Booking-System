@@ -19,7 +19,7 @@ public class RoomEntity {
     @ManyToOne
     private HotelEntity hotelEntity;
     @Column(name = "status")
-    private String status="vacate";
+    private String status="vacant";
 
     public int getRoomId() {
         return roomId;
