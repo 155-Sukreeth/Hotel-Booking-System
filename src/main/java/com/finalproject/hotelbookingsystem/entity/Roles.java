@@ -1,6 +1,6 @@
+
 package com.finalproject.hotelbookingsystem.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -10,13 +10,11 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class HotelEntity {
+@NoArgsConstructor
+public class Roles {
     @Id
     @GeneratedValue
-    @Column(name = "hotel_id")
-    private Integer hotelId;
-    private String name;
-    private String address;
+    private int roleId;
+    private String roleName;
 }

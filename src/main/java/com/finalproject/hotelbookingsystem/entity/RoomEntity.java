@@ -1,6 +1,5 @@
 package com.finalproject.hotelbookingsystem.entity;
 
-import com.finalproject.hotelbookingsystem.dto.HotelDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

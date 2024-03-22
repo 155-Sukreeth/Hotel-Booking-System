@@ -1,10 +1,11 @@
+
 package com.finalproject.hotelbookingsystem.repository;
 
-import com.finalproject.hotelbookingsystem.entity.BookingEntity;
+import com.finalproject.hotelbookingsystem.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
-
+public interface UserRepository extends JpaRepository<User,Integer> {
+    public User getUserByUsername(String username);
 }

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class HotelServiceImpl implements HotelService {
@@ -21,6 +20,7 @@ public class HotelServiceImpl implements HotelService {
     private final ModelMapper modelMapper;
     @Autowired
     public HotelServiceImpl(HotelRepository hotelRepository, ModelMapper modelMapper) {
+        logger.info("HotelServiceImpl constructor called");
         this.hotelRepository = hotelRepository;
         this.modelMapper = modelMapper;
     }

@@ -4,7 +4,6 @@ import com.finalproject.hotelbookingsystem.dto.CustomerDto;
 import com.finalproject.hotelbookingsystem.dto.CustomerUpdateDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CustomerService {
     List<CustomerDto> getAllCustomers();

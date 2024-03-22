@@ -1,6 +1,5 @@
 package com.finalproject.hotelbookingsystem.dto;
 
-import com.finalproject.hotelbookingsystem.entity.HotelEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
