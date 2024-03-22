@@ -59,4 +59,4 @@ To get started with the Hotel Booking System, follow these steps:
 4. Build and run the application.
 
 ## Team
-Ankitha B, Harish D, Sukreeth V
+Ankitha B, Harish D, Ravi Kumar M, Sukreeth V
