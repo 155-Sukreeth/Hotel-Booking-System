@@ -1,9 +1,7 @@
 
 package com.finalproject.hotelbookingsystem.dto;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
+    @NotNull(message = "username cannot be null")
     private String username;
+    @NotNull(message = "password cannot be null")
     private String password;
-    private String email;
-    private String phone;
+    @NotNull(message = "mention your role \n 1.CUSTOMER \n 2.ADMIN")
     private String roles;
 }

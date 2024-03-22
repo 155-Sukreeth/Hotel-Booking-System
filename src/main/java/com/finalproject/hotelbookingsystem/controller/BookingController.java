@@ -4,13 +4,14 @@ import com.finalproject.hotelbookingsystem.dto.BookingRequestDto;
 import com.finalproject.hotelbookingsystem.dto.BookingResponseDto;
 import com.finalproject.hotelbookingsystem.dto.BookingUpdateDto;
 import com.finalproject.hotelbookingsystem.service.BookingService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/bookings")
+@RequestMapping("/booking-api/v1")
 public class BookingController {
     private final BookingService bookingService;
 
@@ -18,11 +19,11 @@ public class BookingController {
     public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
-    @PostMapping
-    public BookingResponseDto createBooking(@RequestBody BookingRequestDto booking) {
+    @PostMapping("/bookings")
+    public BookingResponseDto createBooking(@RequestBody @Valid BookingRequestDto booking) {
         return bookingService.createBooking(booking);
     }
-    @GetMapping("/{bookingId}")
+    @GetMapping("/bookings/{bookingId}")
     public BookingResponseDto getBookingById(@PathVariable Long bookingId) {
         return bookingService.getBookingById(bookingId);
     }
@@ -30,11 +31,11 @@ public class BookingController {
     public List<BookingResponseDto> getAllBookings(){
         return bookingService.getAllBookings();
     }
-    @PutMapping("/{bookingId}")
-    public BookingResponseDto updateBooking(@PathVariable Long bookingId, @RequestBody BookingUpdateDto booking) {
+    @PutMapping("/bookings/{bookingId}")
+    public BookingResponseDto updateBooking(@PathVariable Long bookingId, @RequestBody @Valid BookingUpdateDto booking) {
         return bookingService.updateBooking(bookingId, booking);
     }
-    @DeleteMapping("/{bookingId}")
+    @DeleteMapping("/bookings/{bookingId}")
     public void cancelBooking(@PathVariable Long bookingId) {
         bookingService.cancelBooking(bookingId);
     }

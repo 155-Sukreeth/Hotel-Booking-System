@@ -5,7 +5,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,12 +17,13 @@ import java.io.IOException;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-
-    @Autowired
     private JwtUtility jwtUtility;
-
-    @Autowired
     private CustomUserDetailsService userDetailsService;
+    @Autowired
+    public JwtFilter(JwtUtility jwtUtility, CustomUserDetailsService userDetailsService) {
+        this.jwtUtility = jwtUtility;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -34,9 +34,9 @@ public class JwtFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
             // token = authHeader.substring("Bearer ".length());
-            System.out.println("************************************");
+            System.out.println("---------------------");
             System.out.println(token);
-            System.out.println("************************************");
+            System.out.println("----------------------");
             username = jwtUtility.extractUsername(token);
         }
 

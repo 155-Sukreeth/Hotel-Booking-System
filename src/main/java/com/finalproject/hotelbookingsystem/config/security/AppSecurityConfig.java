@@ -10,7 +10,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,10 +22,16 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class AppSecurityConfig {
+
+    private final JwtFilter jwtFilter;
+
+    private final CustomUserDetailsService customUserDetailsService;
     @Autowired
-    private JwtFilter jwtFilter;
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    public AppSecurityConfig(JwtFilter jwtFilter, CustomUserDetailsService customUserDetailsService) {
+        this.jwtFilter = jwtFilter;
+        this.customUserDetailsService = customUserDetailsService;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(e->e.disable());
@@ -34,15 +39,22 @@ public class AppSecurityConfig {
         httpSecurity.authorizeHttpRequests(authRequest ->{
                     authRequest
                             .requestMatchers("/user-api/v1/users","/user-api/v1/users/login").permitAll()
+
                             .requestMatchers(HttpMethod.GET,"/hotel-api/v1/**").hasAnyAuthority("ADMIN","CUSTOMER")
                             .requestMatchers(HttpMethod.DELETE,"/hotel-api/v1/**").hasAnyAuthority("ADMIN")
                             .requestMatchers(HttpMethod.POST,"/hotel-api/v1/**").hasAnyAuthority("ADMIN")
                             .requestMatchers(HttpMethod.PUT,"/hotel-api/v1/**").hasAnyAuthority("ADMIN")
-                            .requestMatchers("/room-api/v1/**").hasAnyAuthority("ADMIN")
+
+                            .requestMatchers(HttpMethod.PUT,"/room-api/v1/**").hasAnyAuthority("ADMIN")
+                            .requestMatchers(HttpMethod.POST,"/room-api/v1/**").hasAnyAuthority("ADMIN")
+                            .requestMatchers(HttpMethod.DELETE,"/room-api/v1/**").hasAnyAuthority("ADMIN")
+                            .requestMatchers(HttpMethod.GET,"/room-api/v1/**").hasAnyAuthority("ADMIN","CUSTOMER")
+
                             .requestMatchers(HttpMethod.GET,"/bookings/**").hasAnyAuthority("ADMIN")
                             .requestMatchers(HttpMethod.PUT,"/bookings/**").hasAnyAuthority("ADMIN","CUSTOMER")
                             .requestMatchers(HttpMethod.POST,"/bookings/**").hasAnyAuthority("ADMIN","CUSTOMER")
                             .requestMatchers(HttpMethod.DELETE,"/bookings/**").hasAnyAuthority("ADMIN","CUSTOMER")
+
                             .requestMatchers(HttpMethod.DELETE,"/customer/**").hasAnyAuthority("ADMIN","CUSTOMER")
                             .requestMatchers(HttpMethod.GET,"/customer/**").hasAnyAuthority("ADMIN")
                             .requestMatchers(HttpMethod.PUT,"/customer/**").hasAnyAuthority("ADMIN","CUSTOMER")

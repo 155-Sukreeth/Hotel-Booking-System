@@ -25,6 +25,7 @@ public class RoomServiceImpl implements RoomService{
     private final ModelMapper modelmapper;
     @Autowired
     public RoomServiceImpl(RoomRepository roomRepository, HotelRepository hotelRepository, ModelMapper modelmapper) {
+        logger.info("Room service implementation constructor is called");
         this.roomRepository = roomRepository;
         this.hotelRepository = hotelRepository;
         this.modelmapper = modelmapper;
@@ -58,6 +59,7 @@ public class RoomServiceImpl implements RoomService{
                 .stream()
                 .map(e->modelmapper.map(e,RoomResponseDto.class))
                 .toList();
+
     }
     @Override
     public void deleteRoomById(Integer roomId) {

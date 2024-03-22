@@ -17,18 +17,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user=userRepository.getUserByUsername(username);
-        System.out.println("user details from db: "+user);
+        System.out.println(" Data base User details:"+user);
         if(user==null){
             throw new UsernameNotFoundException("Invalid username");
         }
@@ -36,7 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         org.springframework.security.core.userdetails.User user2 = new org.springframework.security.core.userdetails.User(user.getUsername(),
                 user.getPassword(), authorityList);
-        System.out.println("my user deails are mapped: "+user2);
+        System.out.println("User details are mapped: "+user2);
 
         return user2;
     }
