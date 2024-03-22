@@ -50,15 +50,15 @@ public class AppSecurityConfig {
                             .requestMatchers(HttpMethod.DELETE,"/room-api/v1/**").hasAnyAuthority("ADMIN")
                             .requestMatchers(HttpMethod.GET,"/room-api/v1/**").hasAnyAuthority("ADMIN","CUSTOMER")
 
-                            .requestMatchers(HttpMethod.GET,"/bookings/**").hasAnyAuthority("ADMIN")
-                            .requestMatchers(HttpMethod.PUT,"/bookings/**").hasAnyAuthority("ADMIN","CUSTOMER")
-                            .requestMatchers(HttpMethod.POST,"/bookings/**").hasAnyAuthority("ADMIN","CUSTOMER")
-                            .requestMatchers(HttpMethod.DELETE,"/bookings/**").hasAnyAuthority("ADMIN","CUSTOMER")
+                            .requestMatchers(HttpMethod.GET,"/booking-api/v1/**").hasAnyAuthority("ADMIN")
+                            .requestMatchers(HttpMethod.PUT,"/booking-api/v1/**").hasAnyAuthority("ADMIN","CUSTOMER")
+                            .requestMatchers(HttpMethod.POST,"/booking-api/v1/**").hasAnyAuthority("ADMIN","CUSTOMER")
+                            .requestMatchers(HttpMethod.DELETE,"/booking-api/v1/**").hasAnyAuthority("ADMIN","CUSTOMER")
 
-                            .requestMatchers(HttpMethod.DELETE,"/customer/**").hasAnyAuthority("ADMIN","CUSTOMER")
-                            .requestMatchers(HttpMethod.GET,"/customer/**").hasAnyAuthority("ADMIN")
-                            .requestMatchers(HttpMethod.PUT,"/customer/**").hasAnyAuthority("ADMIN","CUSTOMER")
-                            .requestMatchers(HttpMethod.POST,"/customer/**").hasAnyAuthority("ADMIN","CUSTOMER")
+                            .requestMatchers(HttpMethod.DELETE,"/customer-api/v1/**").hasAnyAuthority("ADMIN","CUSTOMER")
+                            .requestMatchers(HttpMethod.GET,"/customer-api/v1/**").hasAnyAuthority("ADMIN")
+                            .requestMatchers(HttpMethod.PUT,"/customer-api/v1/**").hasAnyAuthority("ADMIN","CUSTOMER")
+                            .requestMatchers(HttpMethod.POST,"/customer/api/v1**").hasAnyAuthority("ADMIN","CUSTOMER")
                             .anyRequest().authenticated();
                 }).sessionManagement(Customizer.withDefaults())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
