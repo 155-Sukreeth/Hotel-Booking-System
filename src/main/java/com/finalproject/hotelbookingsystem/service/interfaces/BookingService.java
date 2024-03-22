@@ -1,4 +1,4 @@
-package com.finalproject.hotelbookingsystem.service;
+package com.finalproject.hotelbookingsystem.service.interfaces;
 
 import com.finalproject.hotelbookingsystem.dto.BookingRequestDto;
 import com.finalproject.hotelbookingsystem.dto.BookingResponseDto;

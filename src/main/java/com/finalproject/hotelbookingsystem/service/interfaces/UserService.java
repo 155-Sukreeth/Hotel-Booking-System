@@ -1,5 +1,5 @@
 
-package com.finalproject.hotelbookingsystem.service;
+package com.finalproject.hotelbookingsystem.service.interfaces;
 
 import com.finalproject.hotelbookingsystem.dto.UserDto;
 

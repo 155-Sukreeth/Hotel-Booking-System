@@ -12,6 +12,7 @@ import com.finalproject.hotelbookingsystem.repository.BookingRepository;
 import com.finalproject.hotelbookingsystem.repository.CustomerRepository;
 import com.finalproject.hotelbookingsystem.repository.HotelRepository;
 import com.finalproject.hotelbookingsystem.repository.RoomRepository;
+import com.finalproject.hotelbookingsystem.service.interfaces.BookingService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class BookingServiceImpl implements BookingService{
+public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepo;
     private final RoomRepository roomRepo;
     private final CustomerRepository customerRepo;

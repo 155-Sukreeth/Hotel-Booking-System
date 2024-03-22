@@ -1,7 +1,7 @@
 package com.finalproject.hotelbookingsystem.controller;
 
 import com.finalproject.hotelbookingsystem.dto.HotelDto;
-import com.finalproject.hotelbookingsystem.service.HotelService;
+import com.finalproject.hotelbookingsystem.service.interfaces.HotelService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

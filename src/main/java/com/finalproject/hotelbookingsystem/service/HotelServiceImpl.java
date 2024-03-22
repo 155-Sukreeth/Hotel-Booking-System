@@ -4,6 +4,7 @@ import com.finalproject.hotelbookingsystem.dto.HotelDto;
 import com.finalproject.hotelbookingsystem.entity.HotelEntity;
 import com.finalproject.hotelbookingsystem.exceptions.HotelIdNotFoundException;
 import com.finalproject.hotelbookingsystem.repository.HotelRepository;
+import com.finalproject.hotelbookingsystem.service.interfaces.HotelService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,6 @@ public class HotelServiceImpl implements HotelService {
         }
         return modelMapper.map(hotelOptional.get(), HotelDto.class);
     }
-
     @Override
     public List<HotelDto> getAllHotels() {
         logger.info("Fetching all hotels");
@@ -43,7 +43,6 @@ public class HotelServiceImpl implements HotelService {
                 .map(hotelEntity -> modelMapper.map(hotelEntity, HotelDto.class))
                 .toList();
     }
-
     @Override
     public HotelDto createHotel(HotelDto hotelDto) {
         logger.info("Creating hotel: {}", hotelDto);

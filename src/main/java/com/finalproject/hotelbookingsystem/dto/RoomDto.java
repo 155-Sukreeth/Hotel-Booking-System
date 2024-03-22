@@ -18,5 +18,4 @@ public class RoomDto {
     @Min(value=0,message = "Hotel Id should be positive")
     private int hotelId;
     private String status="vacant";
-
 }

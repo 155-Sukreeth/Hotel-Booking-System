@@ -4,7 +4,7 @@ import com.finalproject.hotelbookingsystem.config.security.JwtUtility;
 import com.finalproject.hotelbookingsystem.dto.LoginRequest;
 import com.finalproject.hotelbookingsystem.dto.UserDto;
 import com.finalproject.hotelbookingsystem.service.CustomUserDetailsService;
-import com.finalproject.hotelbookingsystem.service.UserService;
+import com.finalproject.hotelbookingsystem.service.interfaces.UserService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +38,7 @@ public class UserController {
     @PostMapping(value = "/users")
     public UserDto createUser(@RequestBody @Valid UserDto userDto){
         logger.info("create user called ");
-        return  userService.createUser(userDto);
+        return userService.createUser(userDto);
     }
     @PostMapping(value = "/users/login")
     public String bearerlogin(@RequestBody LoginRequest loginRequest) throws CredentialException {

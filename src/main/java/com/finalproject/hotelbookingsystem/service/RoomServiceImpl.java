@@ -8,6 +8,7 @@ import com.finalproject.hotelbookingsystem.exceptions.HotelIdNotFoundException;
 import com.finalproject.hotelbookingsystem.exceptions.RoomIdNotFoundException;
 import com.finalproject.hotelbookingsystem.repository.HotelRepository;
 import com.finalproject.hotelbookingsystem.repository.RoomRepository;
+import com.finalproject.hotelbookingsystem.service.interfaces.RoomService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RoomServiceImpl implements RoomService{
+public class RoomServiceImpl implements RoomService {
     private static final Logger logger= LoggerFactory.getLogger(RoomServiceImpl.class);
     private final RoomRepository roomRepository;
     private final HotelRepository hotelRepository;
@@ -59,7 +60,6 @@ public class RoomServiceImpl implements RoomService{
                 .stream()
                 .map(e->modelmapper.map(e,RoomResponseDto.class))
                 .toList();
-
     }
     @Override
     public void deleteRoomById(Integer roomId) {

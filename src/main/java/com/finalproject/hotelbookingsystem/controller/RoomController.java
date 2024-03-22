@@ -3,7 +3,7 @@ package com.finalproject.hotelbookingsystem.controller;
 
 import com.finalproject.hotelbookingsystem.dto.RoomDto;
 import com.finalproject.hotelbookingsystem.dto.RoomResponseDto;
-import com.finalproject.hotelbookingsystem.service.RoomService;
+import com.finalproject.hotelbookingsystem.service.interfaces.RoomService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,13 +29,11 @@ public class RoomController {
     }
     @GetMapping("/rooms")
     public List<RoomResponseDto> getAllRooms() {
-
         logger.info("fetch all rooms called");
         return roomService.getAllRooms();
     }
     @PostMapping("/rooms")
     public RoomResponseDto createRoom(@RequestBody @Valid RoomDto roomDto) {
-
         logger.info("create room method is called");
         return roomService.createRoom(roomDto);
     }
@@ -47,7 +45,6 @@ public class RoomController {
     @DeleteMapping("/rooms/{id}")
     public void deleteRoomById(@PathVariable("id") Integer roomId) {
         logger.info("delete room by Id is called");
-
         roomService.deleteRoomById(roomId);
     }
 }

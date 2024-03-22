@@ -3,7 +3,7 @@ package com.finalproject.hotelbookingsystem.controller;
 import com.finalproject.hotelbookingsystem.dto.BookingRequestDto;
 import com.finalproject.hotelbookingsystem.dto.BookingResponseDto;
 import com.finalproject.hotelbookingsystem.dto.BookingUpdateDto;
-import com.finalproject.hotelbookingsystem.service.BookingService;
+import com.finalproject.hotelbookingsystem.service.interfaces.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

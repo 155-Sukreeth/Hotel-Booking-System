@@ -5,6 +5,7 @@ import com.finalproject.hotelbookingsystem.dto.CustomerUpdateDto;
 import com.finalproject.hotelbookingsystem.entity.CustomerEntity;
 import com.finalproject.hotelbookingsystem.exceptions.CustomerIdDoesNotExistException;
 import com.finalproject.hotelbookingsystem.repository.CustomerRepository;
+import com.finalproject.hotelbookingsystem.service.interfaces.CustomerService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final ModelMapper modelMapper;
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
